@@ -19,7 +19,7 @@ const options = ():DataSourceOptions =>{
         schema: 'public',
         logging: configService.get('IS_PROD') === 'false',
         entities: [join(process.cwd(), 'dist', 'libs', 'entities', '**', '*.entity.{ts,js}')],
-        migrations: [join(process.cwd(), 'migrations' , '**' , '*migration.ts')],  // путь до корня, папка migrations , все подпапки если они есть , любые файлы в названии которых есть migration.ts
+        migrations: [join(process.cwd(), 'migrations' , '**' , '*migration.*{.ts,.js}')],  // путь до корня, папка migrations , все подпапки если они есть , любые файлы в названии которых есть migration.ts
         migrationsRun: true, //при запуске проекта будут проверяться миграции
         migrationsTableName: 'migrations'
     }
