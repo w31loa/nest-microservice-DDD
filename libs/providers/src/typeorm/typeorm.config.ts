@@ -25,4 +25,4 @@ const options = ():DataSourceOptions =>{
     }
 }
 
-export const appDataSource = new DataSource(options())  
+export const appDataSource = new DataSource(options())      
