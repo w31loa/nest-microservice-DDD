@@ -19,6 +19,7 @@ export class PostAggregate extends PostSerices implements IPost {
     message: string;
 
     @IsUUID()
+    @IsNotEmpty() 
     authrorId: string;
 
     @IsBoolean()
