@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
-import { DeletePostCommand } from "./dalete-post.command";
+import { DeletePostCommand } from "./delete-post.command";
 import { PostRepository } from "@lib/post/providers";
 import { PostAggregate } from "@lib/post/domain";
 import { BadRequestException, Logger } from "@nestjs/common";
