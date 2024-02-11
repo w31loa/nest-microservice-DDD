@@ -6,7 +6,7 @@ import { throws } from 'assert';
 import { Logger } from '@nestjs/common';
 
 @QueryHandler(GetPostsQuery)
-export class GetPostsQueryHandler implements IQueryHandler<GetPostsQuery, [[PostAggregate], number]>{
+export class GetPostsQueryHandler implements IQueryHandler<GetPostsQuery, [PostAggregate[], number]>{
     
 
 
@@ -15,13 +15,13 @@ export class GetPostsQueryHandler implements IQueryHandler<GetPostsQuery, [[Post
     
     
     
-    async execute({pagination}: GetPostsQuery): Promise<[[PostAggregate], number]> {
+    async execute({pagination}: GetPostsQuery): Promise<[PostAggregate[], number]> {
         const [data,count] = await this.postRepository.findAll(pagination).catch(err=>{
             this.logger.error(err)
             return [[], 0]
         })
 
-        return [data, count] as [[PostAggregate], number]
+        return [data, count] as [PostAggregate[], number]
     }
 
 }
