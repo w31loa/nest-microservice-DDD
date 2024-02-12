@@ -5,10 +5,11 @@ import { PostSerices } from './services';
 import { IsBoolean, IsNotEmpty, IsString, IsUUID, validateSync,  } from 'class-validator';
 import { Exclude } from 'class-transformer';
 import { DomainError } from '@lib/errors';
+import { randomUUID } from 'crypto';
 
 export class PostAggregate extends PostSerices implements IPost {
-    @IsUUID()
-    id: string = randomStringGenerator();
+    @IsUUID('4')
+    id: string = randomUUID();
 
     @IsString() 
     @IsNotEmpty() 
@@ -18,13 +19,13 @@ export class PostAggregate extends PostSerices implements IPost {
     @IsNotEmpty() 
     message: string;
 
-    @IsUUID()
+    @IsUUID('4')
     @IsNotEmpty() 
-    authrorId: string;
+    authorId: string;
 
     @IsBoolean()
     @Exclude() // поле иссключено и не будет возвращаться 
-    published = false;
+    isPublished = false;
 
     @IsString()
     createdAt = new Date().toISOString() ;
@@ -39,6 +40,7 @@ export class PostAggregate extends PostSerices implements IPost {
 
     static create(post : Partial<IPost>){  // Partial значит что все поля не обязательные
         const _post = new PostAggregate()
+     
         // _post.setNotPublished() // из за того что мы наследуемся от сервисов нам доступны все функции оттуда внутри класса
 
         Object.assign(_post, post) //записывает переданный пост а новый пост(если id не передан то он заполняется автоматически)
@@ -47,11 +49,13 @@ export class PostAggregate extends PostSerices implements IPost {
         if(!!errors.length){
             throw new DomainError(errors, 'Post not valid') 
         }
+        // console.log(_post)  
+
         return _post
     }
 
 
     setPublushed(){
-        this.published = true
+        this.isPublished = true
     }
 }
