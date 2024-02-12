@@ -10,8 +10,10 @@ export class CreatePostCommandHandler implements ICommandHandler<CreatePostComma
     constructor(private readonly postRepository: PostRepository){}
 
     async execute({post}: CreatePostCommand): Promise<PostAggregate> {
-        const postAggrigate = PostAggregate.create(post)
-        const createdPost = await this.postRepository.save(postAggrigate).catch(err=>{
+        const postAggregate = PostAggregate.create(post)
+        console.log(postAggregate)
+
+        const createdPost = await this.postRepository.save(postAggregate).catch(err=>{
             throw new BadRequestException(err)
         })
 
